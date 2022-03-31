@@ -62,11 +62,14 @@ def image(data_image):
     # start_time = time.time()
     frame = (readb64(data_image))
     # Convert into grayscale
-    # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     # Detect faces
     # Draw rectangle around the faces
+    start_time = time.time()
     #frame = face_detector(frame)
     frame = face_recogintion(frame)
+    print("--- %s seconds ---" % (time.time() - start_time))
+
     # frame = cv2.flip(frame,1)
     imgencode = cv2.imencode('.jpeg', frame, [cv2.IMWRITE_JPEG_QUALITY, 40])[1]
 

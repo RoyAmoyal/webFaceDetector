@@ -61,6 +61,9 @@ def catch_frame(data):
 def image(data_image):
     # start_time = time.time()
     frame = (readb64(data_image))
+    h, w, c = frame.shape
+    print('width:  ', w)
+    print('height: ', h)
     # Convert into grayscale
     # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     # Detect faces

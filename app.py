@@ -9,6 +9,7 @@ from facerec import Facerec
 
 app = Flask(__name__,template_folder='Templates')
 socketio = SocketIO(app, cors_allowed_origins='*')
+face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 #face_detector = Facerec()
 #face_detector.load_encoding_images("images/")
@@ -50,6 +51,13 @@ def catch_frame(data):
 @socketio.on('image')
 def image(data_image):
     frame = (readb64(data_image))
+    # Convert into grayscale
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # Detect faces
+    faces = face_cascade.detectMultiScale(gray, 1.1, 4)
+    # Draw rectangle around the faces
+    for (x, y, w, h) in faces:
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
     #frame = face_recogintion(frame)
     # frame = cv2.flip(frame,1)
     imgencode = cv2.imencode('.jpeg', frame, [cv2.IMWRITE_JPEG_QUALITY, 40])[1]

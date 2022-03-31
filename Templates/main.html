@@ -63,6 +63,7 @@
             width=video.width;
             height=video.height;
             context.drawImage(video, 0, 0, width , height );
+            console.time('Function #1');
             var data = canvas.toDataURL('image/jpeg', 0.5);
             context.clearRect(0, 0, width,height );
             socket.emit('image', data);
@@ -71,6 +72,7 @@
         socket.on('response_back', function(image){
                 curr_frame = image;
                 photo.setAttribute('src', curr_frame);
+                console.timeEnd('Function #1')
         });
 
 

@@ -120,13 +120,14 @@ def image(data_image):
     # frame = face_detector(frame)
     # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     # frame = face_recogintion(frame)
-    print("--- %s seconds ---" % (time.time() - start_time))
     blob = cv2.dnn.blobFromImage(frame, 1 / 255, (whT, whT), [0, 0, 0], 1, crop=False)
     net.setInput(blob)
     layersNames = net.getLayerNames()
     outputNames = [(layersNames[i - 1]) for i in net.getUnconnectedOutLayers()]
     outputs = net.forward(outputNames)
     frame = findObjects(outputs, frame)
+    print("--- %s seconds ---" % (time.time() - start_time))
+
     # frame = cv2.flip(frame,1)
     imgencode = cv2.imencode('.jpeg', frame, [cv2.IMWRITE_JPEG_QUALITY, 40])[1]
 

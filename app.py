@@ -5,6 +5,7 @@ import io
 from PIL import Image
 import base64, cv2
 import numpy as np
+import time
 from facerec import Facerec
 
 app = Flask(__name__,template_folder='Templates')
@@ -50,6 +51,7 @@ def catch_frame(data):
 
 @socketio.on('image')
 def image(data_image):
+    start_time = time.time()
     frame = (readb64(data_image))
     # Convert into grayscale
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -66,6 +68,7 @@ def image(data_image):
     stringData = base64.b64encode(imgencode).decode('utf-8')
     b64_src = 'data:image/jpeg;base64,'
     stringData = b64_src + stringData
+    print("--- %s seconds ---" % (time.time() - start_time))
 
     # emit the frame back
     emit('response_back', stringData)

@@ -8,12 +8,12 @@ import numpy as np
 import time
 from facerec import Facerec
 
-app = Flask(__name__,template_folder='Templates')
+app = Flask(__name__, template_folder='Templates')
 socketio = SocketIO(app, cors_allowed_origins='*')
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
-#face_detector = Facerec()
-#face_detector.load_encoding_images("images/")
+face_detector = Facerec()
+face_detector.load_encoding_images("images/")
 Payload.max_decode_packets = 2048
 
 
@@ -33,6 +33,7 @@ def readb64(base64_string):
 
     return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
 
+
 #
 # def face_recogintion(frame):
 #     face_locations, face_names = face_detector.detect_known_faces(frame)
@@ -51,6 +52,7 @@ def face_detector(frame):
         cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
     return frame
 
+
 @socketio.on('catch-frame')
 def catch_frame(data):
     emit('response_back', data)
@@ -61,11 +63,11 @@ def image(data_image):
     # start_time = time.time()
     frame = (readb64(data_image))
     # Convert into grayscale
-    #gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     # Detect faces
     # Draw rectangle around the faces
     frame = face_detector(frame)
-    #frame = face_recogintion(frame)
+    # frame = face_recogintion(frame)
     # frame = cv2.flip(frame,1)
     imgencode = cv2.imencode('.jpeg', frame, [cv2.IMWRITE_JPEG_QUALITY, 40])[1]
 

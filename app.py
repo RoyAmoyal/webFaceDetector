@@ -10,8 +10,8 @@ from facerec import Facerec
 app = Flask(__name__,template_folder='Templates')
 socketio = SocketIO(app, cors_allowed_origins='*')
 
-face_detector = Facerec()
-face_detector.load_encoding_images("images/")
+#face_detector = Facerec()
+#face_detector.load_encoding_images("images/")
 Payload.max_decode_packets = 2048
 
 
@@ -31,16 +31,16 @@ def readb64(base64_string):
 
     return cv2.cvtColor(np.array(pimg), cv2.COLOR_RGB2BGR)
 
-
-def face_recogintion(frame):
-    face_locations, face_names = face_detector.detect_known_faces(frame)
-    for face_loc, name in zip(face_locations, face_names):
-        y1, x2, y2, x1 = face_loc[0], face_loc[1], face_loc[2], face_loc[3]
-
-        cv2.putText(frame, name, (x1, y1 - 10), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 0, 200), 2)
-        cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 200), 4)
-    return frame
-
+#
+# def face_recogintion(frame):
+#     face_locations, face_names = face_detector.detect_known_faces(frame)
+#     for face_loc, name in zip(face_locations, face_names):
+#         y1, x2, y2, x1 = face_loc[0], face_loc[1], face_loc[2], face_loc[3]
+#
+#         cv2.putText(frame, name, (x1, y1 - 10), cv2.FONT_HERSHEY_DUPLEX, 1, (0, 0, 200), 2)
+#         cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 0, 200), 4)
+#     return frame
+#
 
 @socketio.on('catch-frame')
 def catch_frame(data):
@@ -50,7 +50,7 @@ def catch_frame(data):
 @socketio.on('image')
 def image(data_image):
     frame = (readb64(data_image))
-    frame = face_recogintion(frame)
+    #frame = face_recogintion(frame)
     # frame = cv2.flip(frame,1)
     imgencode = cv2.imencode('.jpeg', frame, [cv2.IMWRITE_JPEG_QUALITY, 40])[1]
 

@@ -7,7 +7,7 @@ import base64, cv2
 import numpy as np
 from facerec import Facerec
 
-app = Flask(__name__)
+app = Flask(__name__,template_folder='Templates')
 socketio = SocketIO(app, cors_allowed_origins='*')
 
 face_detector = Facerec()

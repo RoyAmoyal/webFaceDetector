@@ -67,7 +67,8 @@ def image(data_image):
     # Draw rectangle around the faces
     start_time = time.time()
     #frame = face_detector(frame)
-    frame = face_recogintion(frame)
+    frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # frame = face_recogintion(frame)
     print("--- %s seconds ---" % (time.time() - start_time))
 
     # frame = cv2.flip(frame,1)

@@ -54,12 +54,12 @@ def image(data_image):
     start_time = time.time()
     frame = (readb64(data_image))
     # Convert into grayscale
-    # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    # # Detect faces
-    # faces = face_cascade.detectMultiScale(gray, 1.1, 4)
-    # # Draw rectangle around the faces
-    # for (x, y, w, h) in faces:
-    #     cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # Detect faces
+    faces = face_cascade.detectMultiScale(gray, 1.1, 4)
+    # Draw rectangle around the faces
+    for (x, y, w, h) in faces:
+        cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
     #frame = face_recogintion(frame)
     # frame = cv2.flip(frame,1)
     imgencode = cv2.imencode('.jpeg', frame, [cv2.IMWRITE_JPEG_QUALITY, 40])[1]

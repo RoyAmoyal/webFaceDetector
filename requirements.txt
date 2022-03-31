@@ -4,7 +4,7 @@ click==8.0.4
 dlib==19.23.1
 face-recognition==1.3.0
 face-recognition-models==0.3.0
-Flask==2.0.3git s
+Flask==2.0.3
 Flask-SocketIO==5.1.1
 gunicorn==20.1.0
 itsdangerous==2.0.1

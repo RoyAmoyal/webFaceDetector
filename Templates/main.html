@@ -23,12 +23,12 @@
 
     <div id="container" >
     <video autoplay playsinline id="videoElement"></video>
-    <canvas id="canvas"  width="400" height="300"></canvas>
+    <canvas id="canvas"  width="320" height="240"></canvas>
     </div>
 
     <div class = 'video' style="width:600px; margin:0 auto;">
         <h1 style='text-align:center'>Face Recognition</h1>
-        <img id="photo"  width="640"  height="480">
+        <img id="photo"  width="320"  height="240">
     </div>
 
     <script type="text/javascript" charset="utf-8">
@@ -43,8 +43,8 @@
         var context = canvas.getContext('2d');
         const video = document.querySelector("#videoElement");
 
-        video.width = 400;
-        video.height = 300;
+        video.width = 320;
+        video.height = 240;
 
 
         if (navigator.mediaDevices.getUserMedia) {

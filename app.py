@@ -62,3 +62,6 @@ def image(data_image):
     # emit the frame back
     emit('response_back', stringData)
 
+
+if __name__ == '__main__':
+    socketio.run(app, port=5000, debug=True)

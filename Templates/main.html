@@ -30,10 +30,8 @@
     </div>
 
     <script type="text/javascript" charset="utf-8">
-
         // var socket = io.connect(window.location.protocol + '//' + document.domain + ':' + location.port);
-        var socket = io('http://localhost:5000');
-
+        var socket = io()
         socket.on('connect', function(){
             console.log("Connected...!", socket.connected)
         });

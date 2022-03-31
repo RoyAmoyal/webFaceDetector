@@ -23,8 +23,8 @@ def index():
 
 
 whT = 320
-confThreshold = 0.5
-nmsThreshold = 0.2
+confThreshold = 0.4
+nmsThreshold = 0.1
 
 #### LOAD MODEL
 ## Coco Names

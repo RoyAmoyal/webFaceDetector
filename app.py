@@ -1,5 +1,5 @@
 from engineio.payload import Payload
-from flask import Flask, render_template
+from flask import Flask, render_template, request, redirect, url_for
 from flask_socketio import SocketIO, emit
 import io
 from PIL import Image
@@ -11,7 +11,7 @@ from facerec import Facerec
 app = Flask(__name__, template_folder='Templates')
 socketio = SocketIO(app, cors_allowed_origins='*')
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
-
+#
 face_recog = Facerec()
 face_recog.load_encoding_images("images/")
 Payload.max_decode_packets = 2048
@@ -19,7 +19,16 @@ Payload.max_decode_packets = 2048
 
 @app.route('/', methods=['POST', 'GET'])
 def index():
-    return render_template('main.html')
+    if request.method == "POST":
+        user = request.form["nm"]
+        return redirect(url_for("user", usr=user))
+    else:
+        return render_template('captureFace.html')
+
+
+@app.route('/<usr>')
+def user(usr):
+    return f'<h1>{usr}</h1>'
 
 
 #
@@ -110,9 +119,9 @@ def catch_frame(data):
 def image(data_image):
     # start_time = time.time()
     frame = (readb64(data_image))
-    h, w, c = frame.shape
-    print('width:  ', w)
-    print('height: ', h)
+    # h, w, c = frame.shape
+    # print('width:  ', w)
+    # print('height: ', h)
     # Convert into grayscale
     # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     # Detect faces
@@ -127,7 +136,7 @@ def image(data_image):
     # outputNames = [(layersNames[i - 1]) for i in net.getUnconnectedOutLayers()]
     # outputs = net.forward(outputNames)
     # frame = findObjects(outputs, frame)
-    print("--- %s seconds ---" % (time.time() - start_time))
+    # print("--- %s seconds ---" % (time.time() - start_time))
 
     # frame = cv2.flip(frame,1)
     imgencode = cv2.imencode('.jpeg', frame, [cv2.IMWRITE_JPEG_QUALITY, 40])[1]

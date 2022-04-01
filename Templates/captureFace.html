@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+    	#video {
+    		transform: rotateY(180deg);
+    		-webkit-transform:rotateY(180deg); /* Safari and Chrome */
+    		-moz-transform:rotateY(180deg); /* Firefox */
+
+    	}
+        /* CSS */
+        .button-63 {
+          align-items: center;
+          background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+          border: 0;
+          border-radius: 8px;
+          box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+          box-sizing: border-box;
+          color: #FFFFFF;
+          display: flex;
+          font-family: Phantomsans, sans-serif;
+          font-size: 20px;
+          justify-content: center;
+          line-height: 1em;
+          max-width: 100%;
+          min-width: 140px;
+          padding: 19px 24px;
+          text-decoration: none;
+          user-select: none;
+          -webkit-user-select: none;
+          touch-action: manipulation;
+          white-space: nowrap;
+          cursor: pointer;
+        }
+
+        .button-63:active,
+        .button-63:hover {
+          outline: 0;
+        }
+
+        @media (min-width: 768px) {
+          .button-63 {
+            font-size: 24px;
+            min-width: 196px;
+          }
+        }
+    </style>
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!--     <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js'></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+
+    <div id="container" >
+    <video autoplay playsinline id="videoElement"></video>
+    <canvas id="canvas"  width="1920" height="1080"></canvas>
+    </div>
+
+    <div class = 'video' style="width:600px; margin:0 auto;">
+        <h1 style='text-align:center'>Face Recognition</h1>
+        <img id="photo"  width="1920"  height="1080">
+        <button class="button-63" role="button">Capture</button>
+<!--        <button style="width:1300px;height:100px; margin:0 auto; font-size: 30px;">Capture</button>-->
+<!--         <form action="#" method="post">-->
+<!--             <p>Name:</p>-->
+<!--             <p><input type="text" name="nm"></p>-->
+<!--             <button>Capture</button>-->
+<!--             <p> </p>-->
+<!--        </form>-->
+    </div>
+
+
+    <script type="text/javascript" charset="utf-8">
+        // var socket = io.connect(window.location.protocol + '//' + document.domain + ':' + location.port);
+        var socket = io()
+        socket.on('connect', function(){
+            console.log("Connected...!", socket.connected)
+        });
+
+
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        const video = document.querySelector("#videoElement");
+
+        video.width = 1920;
+        video.height = 1080;
+
+
+        if (navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(function (err0r) {
+
+            });
+        }
+        let curr_frame = null
+        const FPS = 24;
+        const btn = document.querySelector("button");
+        btn.addEventListener("click", function () {
+
+            width=video.width;
+            height=video.height;
+            context.drawImage(video, 0, 0, width , height );
+            // console.time('Function #1');
+            var data = canvas.toDataURL('image/jpeg', 0.5);
+            socket.emit('image', data);
+
+           context.clearRect(0, 0, width,height );
+            });
+
+
+        socket.on('response_back', function(image){
+                curr_frame = image;
+                photo.setAttribute('src', curr_frame);
+                // console.timeEnd('Function #1')
+        });
+
+
+    </script>
+
+
+ </body>
+
+</html>

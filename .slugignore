@@ -1,2 +1,6 @@
 /images
 haarcascade_frontalface_default.xml
+yolov3-tiny.cfg
+yolov3-tiny.weights
+
+

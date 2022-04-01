@@ -1,7 +1,6 @@
 bidict==0.22.0
 certifi==2021.10.8
 click==8.0.4
-dlib==19.23.1
 face-recognition==1.3.0
 face-recognition-models==0.3.0
 Flask==2.0.3
@@ -11,7 +10,8 @@ itsdangerous==2.0.1
 Jinja2==3.0.3
 MarkupSafe==2.0.1
 numpy==1.21.4
-opencv-python==4.5.5.64 #opencv-python-headless for the heroku instead
+#opencv-python==4.5.5.64 #opencv-python-headless for the heroku instead
+opencv-python-headless
 Pillow==9.0.1
 python-engineio==4.3.1
 python-socketio==5.5.2

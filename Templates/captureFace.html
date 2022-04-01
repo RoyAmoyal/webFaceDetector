@@ -59,7 +59,7 @@
 
     <div id="container" >
     <video autoplay playsinline id="videoElement"></video>
-    <canvas id="canvas"  width="1920" height="1080"></canvas>
+    <canvas id="canvas"  width="680" height="480"></canvas>
     </div>
 
     <div class = 'video' style="width:600px; margin:0 auto;">
@@ -88,8 +88,8 @@
         var context = canvas.getContext('2d');
         const video = document.querySelector("#videoElement");
 
-        video.width = 1920;
-        video.height = 1080;
+        video.width = 680;
+        video.height = 480;
 
 
         if (navigator.mediaDevices.getUserMedia) {

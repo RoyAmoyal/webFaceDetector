@@ -33,7 +33,7 @@ def user(usr):
 
 
 whT = 320
-confThreshold = 0.4
+confThreshold = 0.55
 nmsThreshold = 0.1
 
 #### LOAD MODEL

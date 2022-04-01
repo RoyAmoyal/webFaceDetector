@@ -59,12 +59,12 @@
 
     <div id="container" >
     <video autoplay playsinline id="videoElement"></video>
-    <canvas id="canvas"  width="1920" height="1080"></canvas>
+    <canvas id="canvas"  width="1280" height="720"></canvas>
     </div>
 
     <div class = 'video' style="width:600px; margin:0 auto;">
         <h1 style='text-align:center'>Face Recognition</h1>
-        <img id="photo"  width="1920"  height="1080">
+        <img id="photo"  width="1280"  height="720">
         <button class="button-63" role="button">Capture</button>
 <!--        <button style="width:1300px;height:100px; margin:0 auto; font-size: 30px;">Capture</button>-->
 <!--         <form action="#" method="post">-->
@@ -88,8 +88,8 @@
         var context = canvas.getContext('2d');
         const video = document.querySelector("#videoElement");
 
-        video.width = 1920;
-        video.height = 1080;
+        video.width = 1280;
+        video.height = 720;
 
 
         if (navigator.mediaDevices.getUserMedia) {

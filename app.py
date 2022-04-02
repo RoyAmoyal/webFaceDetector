@@ -7,6 +7,8 @@ import base64, cv2
 import numpy as np
 import time
 from facerec import Facerec
+import requests
+from os.path import exists
 
 app = Flask(__name__, template_folder='Templates')
 socketio = SocketIO(app, cors_allowed_origins='*')
@@ -43,8 +45,13 @@ with open(classesFile, 'rt') as f:
     classNames = f.read().split("\n")
 print(classNames)
 ## Model Files
-modelConfiguration = "yolov3-tiny2.cfg"
-modelWeights = "yolov3-tiny2.weights"
+if not exists('./yolov3-320download.weights'):
+    url = 'https://pjreddie.com/media/files/yolov3.weights'
+    r = requests.get(url, allow_redirects=True)
+    open('yolov3-320download.weights', 'wb').write(r.content)
+
+modelConfiguration = "yolov3-320.cfg"
+modelWeights = "yolov3-320download.weights"
 net = cv2.dnn.readNetFromDarknet(modelConfiguration, modelWeights)
 net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)

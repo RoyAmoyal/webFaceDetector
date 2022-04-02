@@ -61,6 +61,10 @@
     <video autoplay playsinline id="videoElement"></video>
     <canvas id="canvas"  width="1280" height="720"></canvas>
     </div>
+<!--      <div id="container2" >-->
+<!--    <video autoplay playsinline id="videoElement2"></video>-->
+<!--    <canvas id="canvas2"  width="1280" height="720"></canvas>-->
+<!--    </div>-->
     <div class = 'video' >
         <h1 style='text-align:center'>Face Recognition</h1>
         <img id="photo"  width="1280"  height="720">
@@ -86,6 +90,7 @@
         var canvas = document.getElementById('canvas');
         var context = canvas.getContext('2d');
         const video = document.querySelector("#videoElement");
+        // const video2 = document.querySelector("#videoElement2");
 
         video.width = 1280;
         video.height = 720;
@@ -96,6 +101,7 @@
             .then(function (stream) {
                 video.srcObject = stream;
                 video.play();
+                // video2.play()
             })
             .catch(function (err0r) {
 
@@ -109,6 +115,8 @@
             width=video.width;
             height=video.height;
             context.drawImage(video, 0, 0, width , height );
+            // context.drawImage(video2, 0, 0, width , height );
+
             // console.time('Function #1');
             var data = canvas.toDataURL('image/jpeg', 0.5);
             socket.emit('image', data);

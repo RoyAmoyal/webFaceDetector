@@ -2,5 +2,7 @@
 haarcascade_frontalface_default.xml
 yolov3-320.cfg
 yolov3-320.weights
+*.weights
+*.cfg
 
 

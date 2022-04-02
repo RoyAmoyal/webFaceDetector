@@ -6,13 +6,14 @@ import numpy as np
 
 
 class Facerec:
-    def __init__(self,images_path):
+    def __init__(self, images_path):
         self.known_face_encodings = []
         self.known_face_names = []
 
         # Resize frame for a faster speed
         self.frame_resizing = 0.25
         self.images_path = glob.glob(os.path.join(images_path, "*.*"))
+
     def load_encoding_images(self):
         """
         Load encoding images from path
@@ -41,7 +42,7 @@ class Facerec:
 
     def detect_known_faces(self, frame):
         small_frame = cv2.resize(frame, (0, 0), fx=self.frame_resizing, fy=self.frame_resizing)
-        #small_frame = frame
+        # small_frame = frame
         # Find all the faces and face encodings in the current frame of video
         # Convert the image from BGR color (which OpenCV uses) to RGB color (which face_recognition uses)
         rgb_small_frame = cv2.cvtColor(small_frame, cv2.COLOR_BGR2RGB)
@@ -74,4 +75,4 @@ class Facerec:
         face_locations = face_locations / self.frame_resizing
         return face_locations.astype(int), face_names
 
-    #def add_new_face(self,img):
+    # def add_new_face(self,img):

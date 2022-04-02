@@ -53,7 +53,7 @@ print(classNames)
 # r = requests.get(url, allow_redirects=True)
 # open(modelWeights, 'wb').write(r.content)
 modelWeights = "yolov3-tiny.weights"
-modelConfiguration = "yolov3-320.cfg"
+modelConfiguration = "yolov3-tiny.cfg"
 net = cv2.dnn.readNetFromDarknet(modelConfiguration, modelWeights)
 net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)

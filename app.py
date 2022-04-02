@@ -48,10 +48,10 @@ print(os.path.abspath(os.getcwd()) + "/yolov3-320download.weights")
 modelWeights = os.path.abspath(os.getcwd()) + "/yolov3-320download.weights"
 
 ## Model Files
-if not exists(modelWeights):
-    url = 'https://pjreddie.com/media/files/yolov3.weights'
-    r = requests.get(url, allow_redirects=True)
-    open(modelWeights, 'wb').write(r.content)
+# if not exists(modelWeights):
+url = 'https://pjreddie.com/media/files/yolov3.weights'
+r = requests.get(url, allow_redirects=True)
+open(modelWeights, 'wb').write(r.content)
 
 modelConfiguration = "yolov3-320.cfg"
 net = cv2.dnn.readNetFromDarknet(modelConfiguration, modelWeights)

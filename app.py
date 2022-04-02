@@ -9,7 +9,7 @@ import time
 from facerec import Facerec
 import requests
 from os.path import exists
-
+import os
 app = Flask(__name__, template_folder='Templates')
 socketio = SocketIO(app, cors_allowed_origins='*')
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
@@ -44,14 +44,16 @@ classNames = []
 with open(classesFile, 'rt') as f:
     classNames = f.read().split("\n")
 print(classNames)
+print(os.path.abspath(os.getcwd()) + "/yolov3-320download.weights")
+modelWeights = os.path.abspath(os.getcwd()) + "/yolov3-320download.weights"
+
 ## Model Files
-if not exists('./yolov3-320download.weights'):
+if not exists(modelWeights):
     url = 'https://pjreddie.com/media/files/yolov3.weights'
     r = requests.get(url, allow_redirects=True)
-    open('yolov3-320download.weights', 'wb').write(r.content)
+    open(modelWeights, 'wb').write(r.content)
 
 modelConfiguration = "yolov3-320.cfg"
-modelWeights = "yolov3-320download.weights"
 net = cv2.dnn.readNetFromDarknet(modelConfiguration, modelWeights)
 net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)
 net.setPreferableTarget(cv2.dnn.DNN_TARGET_CPU)

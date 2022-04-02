@@ -12,8 +12,8 @@ app = Flask(__name__, template_folder='Templates')
 socketio = SocketIO(app, cors_allowed_origins='*')
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 #
-face_recog = Facerec()
-face_recog.load_encoding_images("images/")
+face_recog = Facerec("images/")
+face_recog.load_encoding_images()
 Payload.max_decode_packets = 2048
 
 

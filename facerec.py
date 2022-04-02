@@ -6,26 +6,25 @@ import numpy as np
 
 
 class Facerec:
-    def __init__(self):
+    def __init__(self,images_path):
         self.known_face_encodings = []
         self.known_face_names = []
 
         # Resize frame for a faster speed
         self.frame_resizing = 0.25
-
-    def load_encoding_images(self, images_path):
+        self.images_path = glob.glob(os.path.join(images_path, "*.*"))
+    def load_encoding_images(self):
         """
         Load encoding images from path
         :param images_path:
         :return:
         """
         # Load Images
-        images_path = glob.glob(os.path.join(images_path, "*.*"))
 
-        print("{} encoding images found.".format(len(images_path)))
+        print("{} encoding images found.".format(len(self.images_path)))
 
         # Store image encoding and names
-        for img_path in images_path:
+        for img_path in self.images_path:
             img = cv2.imread(img_path)
             rgb_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
@@ -74,3 +73,5 @@ class Facerec:
         face_locations = np.array(face_locations)
         face_locations = face_locations / self.frame_resizing
         return face_locations.astype(int), face_names
+
+    #def add_new_face(self,img):

@@ -31,7 +31,6 @@ def user(usr):
     return f'<h1>{usr}</h1>'
 
 
-
 whT = 320
 confThreshold = 0.55
 nmsThreshold = 0.1
@@ -75,7 +74,8 @@ def findObjects(outputs, img):
         x, y, w, h = box[0], box[1], box[2], box[3]
         # print(x,y,w,h)
         cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 255), 2)
-        cv2.putText(img, f'{classNames[classIds[i]].upper()}',(x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 255), 2)
+        cv2.putText(img, f'{classNames[classIds[i]].upper()}', (x + int(w / 2), y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6,
+                    (255, 0, 255), 2)
     return img
 
 
@@ -118,9 +118,9 @@ def catch_frame(data):
 def image(data_image):
     # start_time = time.time()
     frame = (readb64(data_image))
-    # h, w, c = frame.shape
-    # print('width:  ', w)
-    # print('height: ', h)
+    h, w, c = frame.shape
+    print('width:  ', w)
+    print('height: ', h)
     # Convert into grayscale
     # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     # Detect faces
@@ -134,7 +134,7 @@ def image(data_image):
     outputNames = [(layersNames[i - 1]) for i in net.getUnconnectedOutLayers()]
     outputs = net.forward(outputNames)
     frame = findObjects(outputs, frame)
-    #print("--- %s seconds ---" % (time.time() - start_time))
+    # print("--- %s seconds ---" % (time.time() - start_time))
     frame = face_recogintion(frame)
 
     # frame = cv2.flip(frame,1)

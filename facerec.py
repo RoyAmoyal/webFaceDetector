@@ -62,11 +62,12 @@ class Facerec:
 
             # Or instead, use the known face with the smallest distance to the new face
             face_distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
-            best_match_index = np.argmin(face_distances)
-            if matches[best_match_index]:
-                name = self.known_face_names[best_match_index]
-                if name == "roy3" or name == "roy":
-                    name = "Roy Amoyal"
+            if face_distances:
+                best_match_index = np.argmin(face_distances)
+                if matches[best_match_index]:
+                    name = self.known_face_names[best_match_index]
+                    if name == "roy3" or name == "roy":
+                        name = "Roy Amoyal"
             face_names.append(name)
 
         # Convert to numpy array to adjust coordinates with frame resizing quickly

@@ -44,15 +44,15 @@ classNames = []
 with open(classesFile, 'rt') as f:
     classNames = f.read().split("\n")
 print(classNames)
-print(os.path.abspath(os.getcwd()) + "/yolov3-320download.weights")
-modelWeights = os.path.abspath(os.getcwd()) + "/yolov3-320download.weights"
-
-## Model Files
+# print(os.path.abspath(os.getcwd()) + "/yolov3-320download.weights")
+# modelWeights = os.path.abspath(os.getcwd()) + "/yolov3-320download.weights"
+#
+# ## Model Files
 # if not exists(modelWeights):
-url = 'https://pjreddie.com/media/files/yolov3.weights'
-r = requests.get(url, allow_redirects=True)
-open(modelWeights, 'wb').write(r.content)
-
+# url = 'https://pjreddie.com/media/files/yolov3.weights'
+# r = requests.get(url, allow_redirects=True)
+# open(modelWeights, 'wb').write(r.content)
+modelWeights = "yolov3-tiny.weights"
 modelConfiguration = "yolov3-320.cfg"
 net = cv2.dnn.readNetFromDarknet(modelConfiguration, modelWeights)
 net.setPreferableBackend(cv2.dnn.DNN_BACKEND_OPENCV)

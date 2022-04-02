@@ -1,3 +1,8 @@
 yolov3-320download.weights
 haarcascade_frontalface_default.xml
-
+yolov3-416.weights
+yolov3-416.cfg
+yolov3-320.weights
+yolov3-320.cfg
+yolov3-tiny2.weights
+yolov3-tiny2.cfg

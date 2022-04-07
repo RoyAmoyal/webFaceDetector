@@ -16,6 +16,7 @@ face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 #
 face_recog = Facerec("images/")
 face_recog.load_encoding_images()
+# face_recog = None
 Payload.max_decode_packets = 2048
 
 
@@ -127,15 +128,14 @@ def catch_frame(data):
 def image(data_image):
     # start_time = time.time()
     frame = (readb64(data_image))
-    h, w, c = frame.shape
-    print('width:  ', w)
-    print('height: ', h)
+    # h, w, c = frame.shape
+    # print('width:  ', w)
+    # print('height: ', h)
     # Convert into grayscale
     # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     # Detect faces
     # Draw rectangle around the faces
     start_time = time.time()
-    # frame = face_detector(frame)
     # frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     blob = cv2.dnn.blobFromImage(frame, 1 / 255, (whT, whT), [0, 0, 0], 1, crop=False)
     net.setInput(blob)
@@ -143,6 +143,7 @@ def image(data_image):
     outputNames = [(layersNames[i - 1]) for i in net.getUnconnectedOutLayers()]
     outputs = net.forward(outputNames)
     frame = findObjects(outputs, frame)
+    # frame = face_detector(frame)
     # print("--- %s seconds ---" % (time.time() - start_time))
     frame = face_recogintion(frame)
 
